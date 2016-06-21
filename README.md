@@ -28,11 +28,11 @@ Now you can visit [http://localhost:8000/](http://localhost:8000/).
 
 Urls of sitemaps :
 
-    - [sitemap.xml](http://localhost:8000/sitemap.xml)
-    - [sitemap.default.xml](http://localhost:8000/sitemap.default.xml)
-    - [sitemap.blog.xml](http://localhost:8000/sitemap.blog.xml)
-    - [sitemap.misc.xml](http://localhost:8000/sitemap.misc.xml)
-    - [sitemap.yml.xml](http://localhost:8000/sitemap.yml.xml)
+- [sitemap.xml](http://localhost:8000/sitemap.xml)
+- [sitemap.default.xml](http://localhost:8000/sitemap.default.xml)
+- [sitemap.blog.xml](http://localhost:8000/sitemap.blog.xml)
+- [sitemap.misc.xml](http://localhost:8000/sitemap.misc.xml)
+- [sitemap.yml.xml](http://localhost:8000/sitemap.yml.xml)
 
 
 ## Dump the sitemap
