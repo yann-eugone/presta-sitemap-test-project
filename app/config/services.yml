@@ -1,0 +1,10 @@
+
+services:
+
+    my.sitemap.listener:
+        class: Acme\AppBundle\Listener\SitemapListener
+        arguments:
+            - "@doctrine"
+            - "@router"
+        tags:
+            - { name: "presta.sitemap.listener" }

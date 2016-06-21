@@ -1,0 +1,15 @@
+PrestaSitemapBundle:
+    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app_annotation:
+    resource: "@AcmeAppBundle/Controller/"
+    type:     annotation
+
+app_xml:
+    resource: "routing/app.xml"
+    prefix:   /xml
+
+app_yml:
+    resource: "routing/app.yml"
+    prefix:   /yml
