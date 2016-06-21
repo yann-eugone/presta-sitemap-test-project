@@ -14,7 +14,6 @@ $ composer install
 $ bin/console doctrine:database:drop --if-exists --force
 $ bin/console doctrine:database:create
 $ bin/console doctrine:schema:create
-$ bin/console doctrine:fixtures:load
 $ bin/console doctrine:fixtures:load --no-interaction
 ```
 
