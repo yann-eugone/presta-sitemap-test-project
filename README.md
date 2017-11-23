@@ -11,16 +11,16 @@ $ composer install
 **Prepare database entities**
 
 ```bash
-$ bin/console doctrine:database:drop --if-exists --force
-$ bin/console doctrine:database:create
-$ bin/console doctrine:schema:create
-$ bin/console doctrine:fixtures:load --no-interaction
+bin/console doctrine:database:drop --if-exists --force
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
+bin/console doctrine:fixtures:load --no-interaction
 ```
 
 **Run built-in server**
 
 ```bash
-$ bin/console server:run
+bin/console server:run
 ```
 
 Now you can visit [http://localhost:8000/](http://localhost:8000/).
