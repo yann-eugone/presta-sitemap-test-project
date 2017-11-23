@@ -5,16 +5,16 @@ namespace Acme\AppBundle\Listener;
 use Acme\AppBundle\Entity\BlogPost;
 use Acme\AppBundle\Entity\Page;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
-use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Service\UrlContainerInterface;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
  * @author Yann Eugoné <yeugone@prestaconcept.net>
  */
-class SitemapListener implements SitemapListenerInterface
+class SitemapListener implements EventSubscriberInterface
 {
     /**
      * @var RegistryInterface
@@ -37,7 +37,17 @@ class SitemapListener implements SitemapListenerInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     */
+    public static function getSubscribedEvents()
+    {
+        return [
+            SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'populateSitemap',
+        ];
+    }
+
+    /**
+     * @param SitemapPopulateEvent $event
      */
     public function populateSitemap(SitemapPopulateEvent $event)
     {
