@@ -42,6 +42,13 @@ class BlogPost
      */
     private $images;
 
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $video;
+
 
     /**
      * @return int
@@ -97,6 +104,22 @@ class BlogPost
     public function setImages($images)
     {
         $this->images = $images;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    /**
+     * @param null|string $video
+     */
+    public function setVideo($video)
+    {
+        $this->video = $video;
     }
 }
 

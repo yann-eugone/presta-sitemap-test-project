@@ -8,6 +8,7 @@ use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Service\UrlContainerInterface;
 use Presta\SitemapBundle\Sitemap\Url\GoogleImage;
 use Presta\SitemapBundle\Sitemap\Url\GoogleImageUrlDecorator;
+use Presta\SitemapBundle\Sitemap\Url\GoogleVideoUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -101,6 +102,17 @@ class SitemapListener implements EventSubscriberInterface
                         new GoogleImage($image, sprintf('%s - %d', $post->getTitle(), $idx + 1))
                     );
                 }
+            }
+
+            if ($post->getVideo() !== null) {
+                $parameters = parse_str($post->getVideo());
+                $url = new GoogleVideoUrlDecorator(
+                    $url,
+                    sprintf('https://img.youtube.com/vi/%s/0.jpg', $parameters['v']),
+                    $post->getTitle(),
+                    $post->getTitle(),
+                    ['content_loc' => $post->getVideo()]
+                );
             }
 
             $urlContainer->addUrl($url, 'blog');

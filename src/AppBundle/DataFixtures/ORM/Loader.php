@@ -57,6 +57,12 @@ class Loader implements FixtureInterface
             $images[] = sprintf('http://lorempixel.com/400/200/technics/%s/', $i);
         }
 
+        $videos = [
+            'https://www.youtube.com/watch?v=j6IKRxH8PTg',
+            'https://www.youtube.com/watch?v=JugaMuswrmk',
+            'https://www.youtube.com/watch?v=ozMI_m8lQGw',
+        ];
+
         for ($i = 1; $i <= 1000; $i++) {
             $post = new BlogPost();
             $post->setTitle(
@@ -68,6 +74,11 @@ class Loader implements FixtureInterface
             $post->setImages(
                 $faker->randomElements($images, $faker->numberBetween(0, 4))
             );
+            if ($faker->boolean(30)) {
+                $post->setVideo(
+                    $faker->randomElement($videos)
+                );
+            }
 
             $manager->persist($post);
         }
