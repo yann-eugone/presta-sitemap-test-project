@@ -35,6 +35,13 @@ class BlogPost
      */
     private $slug;
 
+    /**
+     * @var array
+     *
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $images;
+
 
     /**
      * @return int
@@ -74,6 +81,22 @@ class BlogPost
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param array $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
     }
 }
 

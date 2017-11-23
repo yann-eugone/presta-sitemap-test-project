@@ -6,6 +6,8 @@ use Acme\AppBundle\Entity\BlogPost;
 use Acme\AppBundle\Entity\Page;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Service\UrlContainerInterface;
+use Presta\SitemapBundle\Sitemap\Url\GoogleImage;
+use Presta\SitemapBundle\Sitemap\Url\GoogleImageUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -84,16 +86,24 @@ class SitemapListener implements EventSubscriberInterface
         $posts = $this->doctrine->getManager()->getRepository(BlogPost::class)->findAll();
 
         foreach ($posts as $post) {
-            $urlContainer->addUrl(
-                new UrlConcrete(
-                    $this->router->generate(
-                        'blog',
-                        ['slug' => $post->getSlug()],
-                        RouterInterface::ABSOLUTE_URL
-                    )
-                ),
-                'blog'
+            $url = new UrlConcrete(
+                $this->router->generate(
+                    'blog',
+                    ['slug' => $post->getSlug()],
+                    RouterInterface::ABSOLUTE_URL
+                )
             );
+
+            if (count($post->getImages()) > 0) {
+                $url = new GoogleImageUrlDecorator($url);
+                foreach ($post->getImages() as $idx => $image) {
+                    $url->addImage(
+                        new GoogleImage($image, sprintf('%s - %d', $post->getTitle(), $idx + 1))
+                    );
+                }
+            }
+
+            $urlContainer->addUrl($url, 'blog');
         }
     }
 }

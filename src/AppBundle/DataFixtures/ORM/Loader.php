@@ -52,6 +52,11 @@ class Loader implements FixtureInterface
     {
         $faker = Factory::create();
 
+        $images = [];
+        for ($i = 1; $i <= 10; $i++) {
+            $images[] = sprintf('http://lorempixel.com/400/200/technics/%s/', $i);
+        }
+
         for ($i = 1; $i <= 1000; $i++) {
             $post = new BlogPost();
             $post->setTitle(
@@ -59,6 +64,9 @@ class Loader implements FixtureInterface
             );
             $post->setSlug(
                 $faker->unique()->slug()
+            );
+            $post->setImages(
+                $faker->randomElements($images, $faker->numberBetween(0, 4))
             );
 
             $manager->persist($post);
