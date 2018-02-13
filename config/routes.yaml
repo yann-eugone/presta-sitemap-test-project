@@ -1,0 +1,9 @@
+
+app_xml:
+    resource: "routes/application/xml.xml"
+
+app_yml:
+    resource: "routes/application/yaml.yaml"
+
+app_annotation:
+    resource: "routes/application/annotations.yaml"

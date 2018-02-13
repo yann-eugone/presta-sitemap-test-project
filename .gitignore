@@ -1,23 +1,15 @@
 /.idea
 composer.lock
-/app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+/public/sitemap.*.xml
+/public/sitemap.xml
+
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
 /vendor/
-/web/bundles/
-/web/sitemap.default.xml
-/web/sitemap.blog.xml
-/web/sitemap.misc.xml
-/web/sitemap.yml.xml
-/web/sitemap.xml
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+.web-server-pid
+###< symfony/web-server-bundle ###

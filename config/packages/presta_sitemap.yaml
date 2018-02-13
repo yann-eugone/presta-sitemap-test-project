@@ -1,0 +1,4 @@
+presta_sitemap:
+    defaults:
+        priority: 0.5
+        lastmod: "yesterday"

@@ -20,7 +20,7 @@ bin/console doctrine:fixtures:load --no-interaction
 **Run built-in server**
 
 ```bash
-bin/console server:run
+bin/console server:start
 ```
 
 Now you can visit [http://localhost:8000/](http://localhost:8000/).
@@ -37,5 +37,5 @@ Urls of sitemaps :
 ## Dump the sitemap
 
 ```bash
-$ bin/console presta:sitemaps:dump
+$ bin/console presta:sitemaps:dump public
 ```

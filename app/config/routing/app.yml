@@ -1,6 +1,0 @@
-yml_route:
-    path:     /yaml
-    defaults: { _controller: AcmeAppBundle:Default:yaml }
-    options:
-        sitemap:
-            section: yml

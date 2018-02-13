@@ -1,0 +1,6 @@
+yml_route:
+    path:     /yaml
+    defaults: { _controller: App\Controller\DefaultController::yamlAction }
+    options:
+        sitemap:
+            section: yml

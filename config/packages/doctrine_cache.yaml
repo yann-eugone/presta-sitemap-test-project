@@ -1,0 +1,5 @@
+doctrine_cache:
+    providers:
+        presta_sitemap:
+            type: array
+            namespace: presta_sitemap
