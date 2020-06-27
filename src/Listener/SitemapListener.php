@@ -4,14 +4,15 @@ namespace App\Listener;
 
 use App\Entity\BlogPost;
 use App\Entity\Page;
+use Doctrine\ORM\EntityManagerInterface;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Service\UrlContainerInterface;
 use Presta\SitemapBundle\Sitemap\Url\GoogleImage;
 use Presta\SitemapBundle\Sitemap\Url\GoogleImageUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\GoogleVideoUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -19,80 +20,56 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class SitemapListener implements EventSubscriberInterface
 {
-    /**
-     * @var RegistryInterface
-     */
-    private $doctrine;
+    private EntityManagerInterface $doctrine;
 
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private UrlGeneratorInterface $router;
 
-    /**
-     * @param RegistryInterface $doctrine
-     * @param RouterInterface   $router
-     */
-    public function __construct(RegistryInterface $doctrine, RouterInterface $router)
+    public function __construct(EntityManagerInterface $doctrine, UrlGeneratorInterface $router)
     {
         $this->doctrine = $doctrine;
         $this->router = $router;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'populateSitemap',
         ];
     }
 
-    /**
-     * @param SitemapPopulateEvent $event
-     */
-    public function populateSitemap(SitemapPopulateEvent $event)
+    public function populateSitemap(SitemapPopulateEvent $event): void
     {
-        $this->registerPages($event->getUrlContainer());
-        $this->registerBlogPosts($event->getUrlContainer());
+        if (\in_array($event->getSection(), ['default', null], true)) {
+            $this->registerPages($event->getUrlContainer());
+        }
+        if (\in_array($event->getSection(), ['blog', null], true)) {
+            $this->registerBlogPosts($event->getUrlContainer());
+        }
     }
 
-    /**
-     * @param UrlContainerInterface $urlContainer
-     */
-    private function registerPages(UrlContainerInterface $urlContainer)
+    private function registerPages(UrlContainerInterface $urlContainer): void
     {
-        $pages = $this->doctrine->getManager()->getRepository(Page::class)->findAll();
+        $pages = $this->doctrine->getRepository(Page::class)->findAll();
 
         foreach ($pages as $page) {
             $urlContainer->addUrl(
-                new UrlConcrete(
-                    $this->router->generate(
-                        'page',
-                        ['slug' => $page->getSlug()],
-                        RouterInterface::ABSOLUTE_URL
-                    )
+                $this->url(
+                    'page',
+                    ['slug' => $page->getSlug()],
                 ),
                 'default'
             );
         }
     }
 
-    /**
-     * @param UrlContainerInterface $urlContainer
-     */
-    private function registerBlogPosts(UrlContainerInterface $urlContainer)
+    private function registerBlogPosts(UrlContainerInterface $urlContainer): void
     {
-        $posts = $this->doctrine->getManager()->getRepository(BlogPost::class)->findAll();
+        $posts = $this->doctrine->getRepository(BlogPost::class)->findAll();
 
         foreach ($posts as $post) {
-            $url = new UrlConcrete(
-                $this->router->generate(
-                    'blog',
-                    ['slug' => $post->getSlug()],
-                    RouterInterface::ABSOLUTE_URL
-                )
+            $url = $this->url(
+                'blog',
+                ['slug' => $post->getSlug()]
             );
 
             if (count($post->getImages()) > 0) {
@@ -117,5 +94,12 @@ class SitemapListener implements EventSubscriberInterface
 
             $urlContainer->addUrl($url, 'blog');
         }
+    }
+
+    private function url(string $route, array $parameters = []): UrlConcrete
+    {
+        return new UrlConcrete(
+            $this->router->generate($route, $parameters, RouterInterface::ABSOLUTE_URL)
+        );
     }
 }

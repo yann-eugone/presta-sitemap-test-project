@@ -5,7 +5,7 @@
 **Require dependencies**
 
 ```bash
-$ composer install
+composer install
 ```
 
 **Prepare database entities**
@@ -19,23 +19,21 @@ bin/console doctrine:fixtures:load --no-interaction
 
 **Run built-in server**
 
-```bash
-bin/console server:start
-```
+Follow symfony web server [documentation](https://symfony.com/doc/current/setup/symfony_server.html) to start your app.
 
-Now you can visit [http://localhost:8000/](http://localhost:8000/).
+Now you can visit [http://127.0.0.1/](http://127.0.0.1/).
 
 Urls of sitemaps :
 
-- [sitemap.xml](http://localhost:8000/sitemap.xml)
-- [sitemap.default.xml](http://localhost:8000/sitemap.default.xml)
-- [sitemap.blog.xml](http://localhost:8000/sitemap.blog.xml)
-- [sitemap.misc.xml](http://localhost:8000/sitemap.misc.xml)
-- [sitemap.yml.xml](http://localhost:8000/sitemap.yml.xml)
+- [sitemap.xml](http://127.0.0.1/sitemap.xml)
+- [sitemap.default.xml](http://127.0.0.1/sitemap.default.xml)
+- [sitemap.blog.xml](http://127.0.0.1/sitemap.blog.xml)
+- [sitemap.misc.xml](http://127.0.0.1/sitemap.misc.xml)
+- [sitemap.yml.xml](http://127.0.0.1/sitemap.yml.xml)
 
 
 ## Dump the sitemap
 
 ```bash
-$ bin/console presta:sitemaps:dump public
+bin/console presta:sitemaps:dump public
 ```

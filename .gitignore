@@ -1,15 +1,14 @@
 /.idea
-composer.lock
+/composer.lock
 /public/sitemap.*.xml
 /public/sitemap.xml
 
 ###> symfony/framework-bundle ###
-.env
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-###> symfony/web-server-bundle ###
-.web-server-pid
-###< symfony/web-server-bundle ###
