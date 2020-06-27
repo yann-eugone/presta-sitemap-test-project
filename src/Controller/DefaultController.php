@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use App\Entity\Page;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,58 +12,42 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @author Yann Eugoné <yeugone@prestaconcept.net>
  */
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="homepage", options={"sitemap" = {"priority":1}})
-     *
-     * @return Response
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         return $this->render('default/index.html.twig', []);
     }
 
-    /**
-     * @return Response
-     */
-    public function xmlAction()
+    public function xmlAction(): Response
     {
         return BinaryFileResponse::create(
-            $this->getParameter('kernel.project_dir').'/config/routes/application/xml.xml'
+            $this->getParameter('kernel.project_dir') . '/config/routes/application/xml.xml'
         );
     }
 
-    /**
-     * @return Response
-     */
-    public function yamlAction()
+    public function yamlAction(): Response
     {
         return BinaryFileResponse::create(
-            $this->getParameter('kernel.project_dir').'/config/routes/application/yaml.yaml'
+            $this->getParameter('kernel.project_dir') . '/config/routes/application/yaml.yaml'
         );
     }
 
     /**
      * @Route("/{slug}", name="page")
-     *
-     * @param Page $page
-     *
-     * @return Response
      */
-    public function pageAction(Page $page)
+    public function pageAction(Page $page): Response
     {
         return $this->render('default/page.html.twig', ['page' => $page]);
     }
 
     /**
      * @Route("/blog/{slug}", name="blog")
-     *
-     * @param BlogPost $post
-     *
-     * @return Response
      */
-    public function blogAction(BlogPost $post)
+    public function blogAction(BlogPost $post): Response
     {
         return $this->render('default/blog.html.twig', ['post' => $post]);
     }

@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\BlogPost;
 use App\Entity\Page;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
 /**
@@ -16,16 +16,13 @@ class Loader extends Fixture
     /**
      * @inheritdoc
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadPages($manager);
         $this->loadBlogPosts($manager);
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
-    private function loadPages(ObjectManager $manager)
+    private function loadPages(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
@@ -45,10 +42,7 @@ class Loader extends Fixture
         $manager->clear(Page::class);
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
-    private function loadBlogPosts(ObjectManager $manager)
+    private function loadBlogPosts(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
