@@ -9,6 +9,7 @@ use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Service\UrlContainerInterface;
 use Presta\SitemapBundle\Sitemap\Url\GoogleImage;
 use Presta\SitemapBundle\Sitemap\Url\GoogleImageUrlDecorator;
+use Presta\SitemapBundle\Sitemap\Url\GoogleVideo;
 use Presta\SitemapBundle\Sitemap\Url\GoogleVideoUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -51,6 +52,7 @@ class SitemapListener implements EventSubscriberInterface
     {
         $pages = $this->doctrine->getRepository(Page::class)->findAll();
 
+        /** @var Page $page */
         foreach ($pages as $page) {
             $urlContainer->addUrl(
                 $this->url(
@@ -66,6 +68,7 @@ class SitemapListener implements EventSubscriberInterface
     {
         $posts = $this->doctrine->getRepository(BlogPost::class)->findAll();
 
+        /** @var BlogPost $post */
         foreach ($posts as $post) {
             $url = $this->url(
                 'blog',
@@ -82,13 +85,15 @@ class SitemapListener implements EventSubscriberInterface
             }
 
             if ($post->getVideo() !== null) {
-                $parameters = parse_str($post->getVideo());
-                $url = new GoogleVideoUrlDecorator(
-                    $url,
-                    sprintf('https://img.youtube.com/vi/%s/0.jpg', $parameters['v']),
-                    $post->getTitle(),
-                    $post->getTitle(),
-                    ['content_loc' => $post->getVideo()]
+                parse_str(parse_url($post->getVideo(), PHP_URL_QUERY), $parameters);
+                $url = new GoogleVideoUrlDecorator($url);
+                $url->addVideo(
+                    $video = new GoogleVideo(
+                        sprintf('https://img.youtube.com/vi/%s/0.jpg', $parameters['v']),
+                        $post->getTitle(),
+                        $post->getTitle(),
+                        ['content_location' => $post->getVideo()]
+                    )
                 );
             }
 
