@@ -13,113 +13,74 @@ use Doctrine\ORM\Mapping as ORM;
 class BlogPost
 {
     /**
-     * @var int
-     *
      * @ORM\Column(type="integer")
-     * @ORM\Id
+     * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title = null;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $slug;
+    private ?string $slug = null;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(type="simple_array", nullable=true)
+     * @ORM\Column(type="json", nullable=false)
      */
-    private $images;
+    private array $images = [];
 
     /**
-     * @var string|null
-     *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $video;
+    private ?string $video = null;
 
-
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $slug
-     */
-    public function setSlug($slug)
+    public function setTitle(string $title): void
     {
-        $this->slug = $slug;
+        $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
-    public function getSlug()
+    public function getSlug(): ?string
     {
         return $this->slug;
     }
 
-    /**
-     * @return array
-     */
-    public function getImages()
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getImages(): array
     {
         return $this->images;
     }
 
-    /**
-     * @param array $images
-     */
-    public function setImages($images)
+    public function setImages(array $images): void
     {
         $this->images = $images;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getVideo()
+    public function getVideo(): ?string
     {
         return $this->video;
     }
 
-    /**
-     * @param null|string $video
-     */
-    public function setVideo($video)
+    public function setVideo(?string $video): void
     {
         $this->video = $video;
     }
 }
-
