@@ -39,7 +39,7 @@ class Loader extends Fixture
         }
 
         $manager->flush();
-        $manager->clear(Page::class);
+        $manager->clear();
     }
 
     private function loadBlogPosts(ObjectManager $manager): void
@@ -78,6 +78,6 @@ class Loader extends Fixture
         }
 
         $manager->flush();
-        $manager->clear(BlogPost::class);
+        $manager->clear();
     }
 }
