@@ -17,6 +17,12 @@ bin/console doctrine:schema:create
 bin/console doctrine:fixtures:load --no-interaction
 ```
 
+**Dump your sitemap**
+
+```bash
+bin/console presta:sitemaps:dump
+```
+
 **Run built-in server**
 
 Follow symfony web server [documentation](https://symfony.com/doc/current/setup/symfony_server.html) to start your app.
@@ -30,10 +36,3 @@ Urls of sitemaps :
 - [sitemap.blog.xml](http://127.0.0.1/sitemap.blog.xml)
 - [sitemap.misc.xml](http://127.0.0.1/sitemap.misc.xml)
 - [sitemap.yml.xml](http://127.0.0.1/sitemap.yml.xml)
-
-
-## Dump the sitemap
-
-```bash
-bin/console presta:sitemaps:dump public
-```
