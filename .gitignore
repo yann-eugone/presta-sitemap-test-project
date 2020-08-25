@@ -1,5 +1,4 @@
 /.idea
-/composer.lock
 /public/sitemap.*.xml
 /public/sitemap.xml
 
