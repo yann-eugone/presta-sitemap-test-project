@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use App\Entity\Page;
+use App\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,9 +16,20 @@ use Symfony\Component\Routing\Attribute\Route;
 class DefaultController extends AbstractController
 {
     #[Route(path: '/', name: 'homepage', options: ['sitemap' => ['priority' => 1]])]
-    public function indexAction(): Response
+    public function indexAction(PageRepository $pageRepository): Response
     {
-        return $this->render('default/index.html.twig', []);
+        // @todo: inject the SiteMap service and get the sections.
+        $sections = [
+            '',
+            'default.',
+            'blog.',
+            'misc.',
+            'yml.'
+        ];
+        return $this->render('default/index.html.twig', [
+            'sections' => $sections,
+            'pages' => $pageRepository->findBy([], [], 30)
+        ]);
     }
 
     public function xmlAction(): Response
@@ -34,7 +46,7 @@ class DefaultController extends AbstractController
         );
     }
 
-    #[Route(path: '/{slug}', name: 'page')]
+    #[Route(path: '/{slug}', name: 'page', priority: -1)]
     public function pageAction(Page $page): Response
     {
         return $this->render('default/page.html.twig', ['page' => $page]);

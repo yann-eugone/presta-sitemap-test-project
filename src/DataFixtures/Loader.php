@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\BlogPost;
 use App\Entity\Page;
+use App\Factory\PageFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -24,12 +25,16 @@ class Loader extends Fixture
 
     private function loadPages(ObjectManager $manager): void
     {
+
+//        PageFactory::createMany(5); // returns Post[]|Proxy[]
+//        return;
+
+        $pageCount = 10;
         $faker = Factory::create();
 
-        for ($i = 1; $i <= 1000; $i++) {
+        for ($i = 1; $i <= $pageCount; $i++) {
             $page = new Page();
             $x = $faker->numberBetween(3, 6);
-            dd($x, $faker->sentence());
             $page->setTitle(
                 $faker->sentence()
             );

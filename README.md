@@ -15,8 +15,9 @@ Sqlite (the default) doesn't support --if-exists, but add that for MySQL or Post
 ```bash
 bin/console doctrine:database:drop --force
 bin/console doctrine:database:create
-bin/console doctrine:schema:create
+bin/console doctrine:schema:update --force --complete
 bin/console doctrine:fixtures:load --no-interaction
+symfony open:local
 ```
 
 **Dump your sitemap**
