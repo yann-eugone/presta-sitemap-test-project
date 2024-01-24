@@ -28,8 +28,10 @@ class Loader extends Fixture
 
         for ($i = 1; $i <= 1000; $i++) {
             $page = new Page();
+            $x = $faker->numberBetween(3, 6);
+            dd($x, $faker->sentence());
             $page->setTitle(
-                $faker->sentence($faker->numberBetween(3, 6))
+                $faker->sentence()
             );
             $page->setSlug(
                 $faker->unique()->slug()

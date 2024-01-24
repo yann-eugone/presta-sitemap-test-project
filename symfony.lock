@@ -77,14 +77,23 @@
     "doctrine/sql-formatter": {
         "version": "1.1.0"
     },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
-    },
     "ocramius/package-versions": {
         "version": "1.9.0"
     },
     "php": {
         "version": "7.4"
+    },
+    "phpstan/phpstan": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "5e490cc197fb6bb1ae22e5abbc531ddc633b6767"
+        },
+        "files": [
+            "phpstan.dist.neon"
+        ]
     },
     "presta/sitemap-bundle": {
         "version": "v2.1.0"
