@@ -15,6 +15,7 @@
         "symfony/dotenv": "^7.0",
         "symfony/flex": "^2.0",
         "symfony/framework-bundle": "*",
+        "symfony/runtime": "*",
         "symfony/twig-bundle": "^7.0",
         "symfony/yaml": "^7.0",
         "twig/extra-bundle": "^3.0",
@@ -30,7 +31,8 @@
         },
         "sort-packages": true,
         "allow-plugins": {
-            "symfony/flex": true
+            "symfony/flex": true,
+            "symfony/runtime": true
         }
     },
     "autoload": {
