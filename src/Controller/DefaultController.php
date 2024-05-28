@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\BlogPost;
 use App\Entity\Page;
-use App\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,32 +15,28 @@ use Symfony\Component\Routing\Attribute\Route;
 class DefaultController extends AbstractController
 {
     #[Route(path: '/', name: 'homepage', options: ['sitemap' => ['priority' => 1]])]
-    public function indexAction(PageRepository $pageRepository): Response
+    public function indexAction(): Response
     {
-        // @todo: inject the SiteMap service and get the sections.
-        $sections = [
-            '',
-            'default.',
-            'blog.',
-            'misc.',
-            'yml.'
-        ];
+        $sitemaps = [];
+        foreach (glob($this->getParameter('kernel.project_dir') . '/public/sitemap*.xml') as $file) {
+            $sitemaps[] = basename($file);
+        }
+
         return $this->render('default/index.html.twig', [
-            'sections' => $sections,
-            'pages' => $pageRepository->findBy([], [], 30)
+            'sitemaps' => $sitemaps,
         ]);
     }
 
     public function xmlAction(): Response
     {
-        return BinaryFileResponse::create(
+        return new BinaryFileResponse(
             $this->getParameter('kernel.project_dir') . '/config/routes/application/xml.xml'
         );
     }
 
     public function yamlAction(): Response
     {
-        return BinaryFileResponse::create(
+        return new BinaryFileResponse(
             $this->getParameter('kernel.project_dir') . '/config/routes/application/yaml.yaml'
         );
     }

@@ -5,30 +5,8 @@
 
     <h3>Sitemaps</h3>
     <ul>
-        {% for section in sections %}
-            {% set url = '/sitemap.%sxml'|format(section) %}
-            <li><a href="{{ url }}">
-                    {{ url }}
-                </a>
-            </li>
-        {% endfor %}
-
-        {% for otherRoute in ['xml_route','yml_route'] %}
-            {% set url = path(otherRoute) %}
-            <li><a href="{{ url }}">
-                    {{ url }}
-                </a>
-            </li>
-
-        {% endfor %}
-    </ul>
-
-    <ul>
-        {% for page in pages %}
-            <li><a href="{{ path('page', {slug: page.slug}) }}">
-                    {{ page.title }}
-                </a>
-            </li>
+        {% for sitemap in sitemaps %}
+        <li><a href="/{{ sitemap }}">/{{ sitemap }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}

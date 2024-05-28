@@ -12,6 +12,7 @@ use Presta\SitemapBundle\Sitemap\Url\GoogleImageUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\GoogleVideo;
 use Presta\SitemapBundle\Sitemap\Url\GoogleVideoUrlDecorator;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -19,7 +20,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * @author Yann Eugoné <yeugone@prestaconcept.net>
  */
-class SitemapListener implements EventSubscriberInterface
+class SitemapListener
 {
     private EntityManagerInterface $doctrine;
 
@@ -31,13 +32,7 @@ class SitemapListener implements EventSubscriberInterface
         $this->router = $router;
     }
 
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            SitemapPopulateEvent::class => 'populateSitemap',
-        ];
-    }
-
+    #[AsEventListener(event: SitemapPopulateEvent::class)]
     public function populateSitemap(SitemapPopulateEvent $event): void
     {
         if (\in_array($event->getSection(), ['default', null], true)) {

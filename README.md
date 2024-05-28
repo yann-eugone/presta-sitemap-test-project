@@ -8,10 +8,7 @@ composer install
 
 **Prepare database entities**
 
-Sqlite (the default) doesn't support --if-exists, but add that for MySQL or Postgres
-
 ```bash
-bin/console doctrine:database:drop --force
 bin/console doctrine:database:create
 bin/console doctrine:schema:update --force --complete
 bin/console doctrine:fixtures:load --no-interaction

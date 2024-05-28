@@ -25,14 +25,12 @@ class Loader extends Fixture
 
     private function loadPages(ObjectManager $manager): void
     {
-        $pageCount = 10;
         $faker = Factory::create();
 
-        for ($i = 1; $i <= $pageCount; $i++) {
+        for ($i = 1; $i <= 1000; $i++) {
             $page = new Page();
-            $x = $faker->numberBetween(3, 6);
             $page->setTitle(
-                $faker->sentence()
+                $faker->sentence($faker->numberBetween(3, 6))
             );
             $page->setSlug(
                 $faker->unique()->slug()
