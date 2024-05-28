@@ -8,7 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class Loader extends Fixture
+final class Loader extends Fixture
 {
     /**
      * @inheritdoc

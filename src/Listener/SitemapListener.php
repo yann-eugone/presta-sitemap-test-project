@@ -17,16 +17,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class SitemapListener
+final readonly class SitemapListener
 {
-    private EntityManagerInterface $doctrine;
-
-    private UrlGeneratorInterface $router;
-
-    public function __construct(EntityManagerInterface $doctrine, UrlGeneratorInterface $router)
-    {
-        $this->doctrine = $doctrine;
-        $this->router = $router;
+    public function __construct(
+        private EntityManagerInterface $doctrine,
+        private UrlGeneratorInterface $router,
+    ) {
     }
 
     #[AsEventListener(event: SitemapPopulateEvent::class)]
