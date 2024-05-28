@@ -25,10 +25,6 @@ class Loader extends Fixture
 
     private function loadPages(ObjectManager $manager): void
     {
-
-//        PageFactory::createMany(5); // returns Post[]|Proxy[]
-//        return;
-
         $pageCount = 10;
         $faker = Factory::create();
 
