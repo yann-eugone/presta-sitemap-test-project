@@ -4,10 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- *
- * @author Yann Eugoné <yeugone@prestaconcept.net>
- */
 #[ORM\Table(name: 'page')]
 #[ORM\Entity]
 class Page

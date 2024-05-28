@@ -4,14 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\BlogPost;
 use App\Entity\Page;
-use App\Factory\PageFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-/**
- * @author Yann Eugoné <yeugone@prestaconcept.net>
- */
 class Loader extends Fixture
 {
     /**

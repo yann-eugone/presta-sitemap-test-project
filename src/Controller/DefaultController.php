@@ -9,9 +9,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @author Yann Eugoné <yeugone@prestaconcept.net>
- */
 class DefaultController extends AbstractController
 {
     #[Route(path: '/', name: 'homepage', options: ['sitemap' => ['priority' => 1]])]
